@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained();
+            $table->string('code')->unique();
+            $table->text('title');
+            $table->longText('description');
+            $table->enum('status', ['open', 'onprogress', 'resolved', 'rejected'])->default('open');
+            $table->enum('priorty', ['low', 'medium', 'high']);
+            $table->timestamps ();
+            $table->timestamp('completed_at')->nullable();
         });
     }
 
