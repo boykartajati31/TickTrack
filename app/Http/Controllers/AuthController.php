@@ -43,8 +43,15 @@ class AuthController extends Controller
     {
         try {
             $user = Auth::user();
-        } catch (\Throwable $th) {
-            //throw $th;
+                return response()->json([
+                    'message' => 'Profile User SUCCESS',
+                    'data'    => new UserResource($user)
+                ], 200);
+        } catch (Exception $e) {
+                return response()->json([
+                    'message' => 'Error',
+                    'error'    => $e->getMessage()
+                ], 500);
         }
     }
 }
